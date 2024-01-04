@@ -19,7 +19,14 @@ module.exports = ({ sequelize, dataTypes }) => {
       type: dataTypes.JSONB,
       allowNull: false,
       xlabel: 'Acciones correspondientes que se pueden realizar',
-      field:'metodo',
+      field:'accion',
+    },
+    estado: {
+      type: dataTypes.ENUM,
+      values: ['ACTIVO', 'INACTIVO'],
+      allowNull: false,
+      xlabel: 'Estado del registro',
+      field: 'estado',
     },
     ...fieldsAuditory
   }

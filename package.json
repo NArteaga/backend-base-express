@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "setup": "node src/infraestructures/setup.js"
+    "setup": "node src/infraestructures/setup.js",
+    "seed": "sequelize db:seed:all --debug --seeders-path src/infraestructures/seeders --config src/infraestructures/libs/seeder.config.js",
+    "db": "npm run setup && npm run seed"
   },
   "keywords": [
     "sisger",

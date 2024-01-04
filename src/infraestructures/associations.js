@@ -11,7 +11,7 @@ module.exports = (models) => {
   rol.hasMany(funcionario, { foreignKey: { name: 'idRol' }, as: 'funcionarios' })
 
   rol.belongsToMany(menu, { through: { model: rolMenu, unique: false}, as: 'menus', foreignKey: 'idRol' })
-  menu.belongsToMany(rol, { through: { model: rolMenu, unique: false}, as: 'menus', foreignKey: 'idMenu' })
+  menu.belongsToMany(rol, { through: { model: rolMenu, unique: false}, as: 'roles', foreignKey: 'idMenu' })
 
   funcionario.belongsTo(unidad, { foreignKey: { name: 'idUnidad' }, as: 'unidad' })
   unidad.hasMany(funcionario, { foreignKey: { name: 'idUnidad' }, as: 'funcionarios' })
@@ -19,8 +19,8 @@ module.exports = (models) => {
   unidad.belongsTo(unidad, { foreignKey: { name: 'idUnidad' }, as: 'father' })
   unidad.hasMany(unidad, { foreignKey: { name: 'idUnidad' }, as: 'childrens' })
 
-  menu.belongsTo(menu, { foreignKey: { name: 'idUnidad' }, as: 'father' })
-  menu.hasMany(menu, { foreignKey: { name: 'idUnidad' }, as: 'childrens' })
+  menu.belongsTo(menu, { foreignKey: { name: 'idAgrupador' }, as: 'father' })
+  menu.hasMany(menu, { foreignKey: { name: 'idAgrupador' }, as: 'childrens' })
 
   return models
 }

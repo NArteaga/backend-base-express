@@ -35,7 +35,7 @@ module.exports = ({ sequelize, dataTypes }) => {
       values: ['GRUPO_MENU', 'MENU', 'VISTA', 'API'],
       allowNull: false,
       xlabel: 'tipo de menu',
-      field: 'estado',
+      field: 'tipo',
     },
     estado: {
       type: dataTypes.ENUM,

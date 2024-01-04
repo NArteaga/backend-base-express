@@ -1,6 +1,5 @@
 const { query } = require('express')
 const { errorHandler } = require('./utils')
-const { transaction } = require('../../common/db')
 
 const createOrUpdate = async (object, model, transaction) => {
   const query = { where: { id: object?.id || null } }
@@ -28,7 +27,7 @@ const update = async (object, query, model, item) => {
 const create = async (object, model, transaction) => {
   object.createdAt = new Date()
   object.userCreated = object.user
-  query = {}
+  let query = {}
   if (transaction) query.transaction = transaction
   try {
     delete object.user
@@ -36,6 +35,7 @@ const create = async (object, model, transaction) => {
     if (result) return result.toJSON()
     return null
   } catch (error) {
+    console.log(error)
     if (transaction) await transaction.rollback()
     errorHandler(error)
   }

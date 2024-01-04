@@ -5,7 +5,6 @@ module.exports = ({ sequelize, dataTypes }) => {
     id: pk,
     idUnidad: {
       type: dataTypes.UUID,
-      allowNull: false,
       xlabel: 'Identificador de la unidad',
       field: 'id_unidad',
     },
@@ -29,9 +28,9 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('rol', fields, {
+  return sequelize.define('unidad', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_rol'
+    tableName: 'system_unidad'
   })
 }

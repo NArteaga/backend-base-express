@@ -12,17 +12,17 @@ const configInjection = {
       dir: 'infraestructures',
       container: 'models',
       name: '.model',
-      dependecies: { sequelize: sequelize, dataTypes: dataTypes }
+      dependecies: { sequelize, dataTypes }
     },
     {
       dir: 'infraestructures',
       container: 'repositories',
       name: '.repository',
       inject: ['estructures'],
-      dependecies: { sequelize: sequelize }
+      dependecies: { sequelize }
     },
     { dir: 'logics', container: 'libs', name: '', inject: '' },
-    { dir: 'logics', container: 'services', name: '.service', inject: ['repositories', 'models', 'libs'], dependecies: { transaction: transaction } },
+    { dir: 'logics', container: 'services', name: '.service', inject: ['repositories', 'models', 'libs'], dependecies: { transaction: transaction(sequelize) } },
     { dir: 'applications', container: 'middlewares', name: '.middleware', inject: ['services', 'libs'] },
     { dir: 'applications', container: 'controllers', name: '.controller', inject: ['services', 'libs'] },
   ],

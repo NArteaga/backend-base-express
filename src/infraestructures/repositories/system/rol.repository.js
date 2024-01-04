@@ -1,14 +1,17 @@
+const { toJSON } = require('../../libs/utils');
+
 module.exports = ({ sequelize, estructures }) => {
   const { rol, menu } = estructures
   const operation = sequelize.Op
-  const findMiddleware = (idRol, method) => {
+  const findMiddleware = async (idRol, method, transaction) => {
     const query = {}
+    if (transaction) query.transaction = transaction
     query.attributes = [
       'nombre',
       'descripcion',
       'estado',
     ]
-    query.includes = [
+    query.include = [
       {
         attributes: [
           'ruta',
@@ -25,19 +28,20 @@ module.exports = ({ sequelize, estructures }) => {
         where: { tipo: 'API', estado: 'ACTIVO' }
       }
     ]
-    query.where = { idRol, estado: 'ACTIVO' }
-    const result = rol.findOne(query)
+    query.where = { id: idRol, estado: 'ACTIVO' }
+    const result = await rol.findOne(query)
     if (result) return result.toJSON()
     return null
   }
 
-  const findPermision = (idRol) => {
+  const findPermision = async (idRol, transaction) => {
     const query = {}
+    if (transaction) query.transaction = transaction
     query.attributes = [
       'nombre',
       'descripcion',
     ]
-    query.includes = [
+    query.include = [
       {
         attributes: [
           'ruta',
@@ -51,9 +55,9 @@ module.exports = ({ sequelize, estructures }) => {
         where: { tipo: ['MENU', 'VISTA'], estado: 'ACTIVO' }
       }
     ]
-    query.where = { idRol, estado: 'ACTIVO' }
-    const result = rol.findAll(query)
-    if (result) return toJSON(result)
+    query.where = { id: idRol, estado: 'ACTIVO' }
+    const result = await rol.findOne(query)
+    if (result) return result.toJSON()
     return null
   }
 
