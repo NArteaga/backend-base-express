@@ -10,6 +10,15 @@ module.exports = ({ services: { login } }) => {
     }
   }
 
+  const verificar = async ({ user }, res) => {
+    try {
+      return ok(res, true, 'ok')
+    } catch (err) {
+      console.log(err)
+      error(res, HTTP_CODES.UNAUTHORIZED, err.message)
+    }
+  }
+
   const refreshToken = async ({ user }, res) => {
     try {
       const token = jwt.getToken(240, user)
@@ -23,6 +32,7 @@ module.exports = ({ services: { login } }) => {
 
   return {
     authentication,
+    verificar,
     refreshToken
   }
 }

@@ -13,16 +13,14 @@ const toJSON = (result) => {
 
 const getQuery = (option = {}, arr = []) => {
   const query = {}
-  if (!option.order) option.order = 'createdAt'
-  if (arr.includes(option.order?.replace('-', ''))) {
-    query.order = [[option.order, 'ASC']]
-    if (option.order.startsWith('-'))
-      query.order[0] = [option.order.substring(1), 'DESC']
-  }
+  if (!option.order) option.order = '-createdAt'
+  query.order = [[option.order, 'ASC']]
+  if (option.order.startsWith('-'))
+    query.order[0] = [option.order.substring(1), 'DESC']
   query.order.push(['id', 'ASC'])
   if (option.limit) query.limit = parseInt(option.limit)
   if (query?.limit && option.page)
-    query.offset = parseInt(option.page - 1) * query.limit
+    query.offset = parseInt(option.page) * query.limit
   return query
 }
 

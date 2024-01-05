@@ -7,6 +7,12 @@ module.exports = (models) => {
     unidad,
   } = models
 
+
+  const {
+    detalleProyecto,
+    proyecto
+  } = models
+
   funcionario.belongsTo(rol, { foreignKey: { name: 'idRol' }, as: 'rol' })
   rol.hasMany(funcionario, { foreignKey: { name: 'idRol' }, as: 'funcionarios' })
 
@@ -22,5 +28,11 @@ module.exports = (models) => {
   menu.belongsTo(menu, { foreignKey: { name: 'idAgrupador' }, as: 'father' })
   menu.hasMany(menu, { foreignKey: { name: 'idAgrupador' }, as: 'childrens' })
 
+  detalleProyecto.belongsTo(proyecto, { foreignKey: { name: 'idProyecto' }, as: 'proyecto' })
+  proyecto.hasMany(detalleProyecto, { foreignKey: { name: 'idProyecto' }, as: 'detalleProyectos' })
+
+  detalleProyecto.belongsTo(funcionario, { foreignKey: { name: 'idFuncionario' }, as:'funcionario' })
+  funcionario.hasMany(detalleProyecto, { foreignKey: { name: 'idFuncionario' }, as: 'detalleProyectos' })
+  
   return models
 }

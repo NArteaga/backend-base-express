@@ -12,6 +12,7 @@ const app = express()
 
 app.use(json({ limit: '10mb' }))
 app.use(cors())
+app.use(express.static(process.env.PATH_FILE_PUBLIC))
 
 const load = async (app) => {
   const config = await dependecies(__dirname)

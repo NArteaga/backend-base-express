@@ -30,7 +30,7 @@ module.exports = ({ repositories, models, libs, transaction: t }) => {
       }
       if (usuario.estado === 'INACTIVO') throw new Error('Su usuario fue desactivado', 401)
       const token = jwt.getToken(240, {
-        identificador: usuario.id,
+        user: usuario.id,
         ...user,
         rol: usuario.idRol,
       })
@@ -44,7 +44,6 @@ module.exports = ({ repositories, models, libs, transaction: t }) => {
         menus
       }
     } catch (error) {
-      console.log(error)
       await rollback(transaction)
       throw error
     }
