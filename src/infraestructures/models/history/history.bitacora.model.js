@@ -3,27 +3,32 @@ const { pk, fieldsAuditory } = require('../../libs/fields')
 module.exports = ({ sequelize, dataTypes }) => {
   const fields = {
     id: pk,
+    idBitacora: {
+      type: dataTypes.UUID,
+      xlabel: 'identificador de la bitacora',
+      field: 'id_bitacora',
+    },
     nombre: {
       type: dataTypes.STRING,
       allowNull: false,
-      xlabel: 'nombre del proyecto',
+      xlabel: 'nombre del bitacora',
       field: 'nombre',
     },
     palabraClave: {
       type: dataTypes.JSONB,
-      xlabel: 'paralabras claves del proyecto',
+      xlabel: 'paralabras claves del bitacora',
       field: 'palabra_clave',
     },
     descripcion: {
       type: dataTypes.TEXT,
       allowNull: false,
-      xlabel: 'descripcion del proyecto',
+      xlabel: 'descripcion del bitacora',
       field: 'descripcion',
     },
-    ruta: {
-      type: dataTypes.JSONB,
-      xlabel: 'Ruta de la imagen',
-      field: 'ruta',
+    idAdjunto: {
+      type: dataTypes.UUID,
+      xlabel: 'identificador del adjunto',
+      field: 'id_adjunto',
     },
     estado: {
       type: dataTypes.ENUM,
@@ -34,9 +39,9 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('proyecto', fields, {
+  return sequelize.define('history-bitacora', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'general-proyecto',
+    tableName: 'history-bitacora',
   })
 }

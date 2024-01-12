@@ -54,14 +54,15 @@ const deleteId = async (id, user, model, transaction) => {
   }
 }
 
-const deleteCondition = async (params, model, transaction) => {
+const deleteCondition = async (condition, model, transaction) => {
   const set = {
-    userDeleted: params.user,
+    userDeleted: condition.user,
     deletedAt: new Date()
   }
-  delete params.user
-  query = { where: { condition } }
+  delete condition.user
+  const query = { where: { ...condition } }
   if (transaction) query.transaction = transaction
+  console.log(query)
   try {
     const deleted = await model.update(set, query)
     return !!deleted

@@ -103,13 +103,14 @@ const getRoutes = (path, urlBase) => {
 module.exports = {
   loadDependecies,
   injectDependecies: getInjectDependecies,
-  dependecies: async (path) => {
+  dependecies: async (path, socket) => {
+    console.log(path)
     const dependecies = {}
     for (const inject of configInjection.config) {
       dependecies[inject.container]
         = loadDependecies(
           join(path, inject.dir, inject.container),
-          { ...inject, type: configInjection.type, dependecies: { ...inject.dependecies, ...configInjection.dependecies } },
+          { ...inject, type: configInjection.type, dependecies: { ...inject.dependecies, ...configInjection.dependecies, socket } },
           getInjectDependecies(dependecies, inject.inject)
         )
       if (inject.container === 'models')

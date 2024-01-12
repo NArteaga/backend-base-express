@@ -3,7 +3,6 @@ const ldap = require('activedirectory2')
 module.exports = () => {
   const auth = (user, password) => {
     const username = `${user}@domfndr`
-    console.log(username)
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}` })
     return new Promise((resolve, reject) => {
       client.authenticate(username, password, (err, result) => {
@@ -18,7 +17,6 @@ module.exports = () => {
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}`, username, password })
     return new Promise((resolve, reject) => {
       client.findUser(username, (err, result) => {
-        console.log(result)
         if (err) reject(new Error('no se pudo encontrar el usuario correspondiente'))
         if (result) resolve(getContent(result))
       })

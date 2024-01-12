@@ -13,6 +13,7 @@ const RecaptchaMiddleWare = function () {
         if (
           response.success
           && response.score > 0.5
+          && response.hostname === process.env.FRONTEND_HOST
           && response.action === action)
             return next()
         throw new Error('No se encuentra autorizado')

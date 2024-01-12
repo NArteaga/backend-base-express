@@ -1,5 +1,6 @@
 const express = require('express')
 const { json } = require('body-parser')
+const fileUpload = require('express-fileupload');
 const cors = require('cors')
 const { createServer } = require('http')
 const { config } = require('dotenv')
@@ -7,19 +8,35 @@ const { dependecies, routes } = require('./common/load')
 config()
 
 const app = express()
-
+const socketApp = express()
 //INFO configuracion inicial
 
 app.use(json({ limit: '10mb' }))
 app.use(cors())
+socketApp.use(cors())
 app.use(express.static(process.env.PATH_FILE_PUBLIC))
+app.use(fileUpload())
 
-const load = async (app) => {
-  const config = await dependecies(__dirname)
+const serverSocket = createServer(socketApp);
+
+const io = require('socket.io')(serverSocket, {
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
+
+const load = async (app, io) => {
+  const config = await dependecies(__dirname, io)
   app.use('/api', routes(__dirname, config))
 }
-
-load(app)
+io.on('connection', (socket) => {
+  socket.on('mode', (msg) => {
+    console.log('message: ' + msg);
+  });
+});
+load(app, io)
 
 app.get('/api/status', (_, res) => {
   const date = new Date();
@@ -48,6 +65,20 @@ app.use((err, req, res, next) => {
 })
 
 const server = createServer(app);
+
+serverSocket.listen(process.env.SOCKET_PORT || 3200, () => {
+  console.log(`
+    ███████╗██╗███████╗ ██████╗ ███████╗██████╗     ███████╗ ██████╗  ██████╗██╗  ██╗███████╗████████╗
+    ██╔════╝██║██╔════╝██╔════╝ ██╔════╝██╔══██╗    ██╔════╝██╔═══██╗██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
+    ███████╗██║███████╗██║  ███╗█████╗  ██████╔╝    ███████╗██║   ██║██║     █████╔╝ █████╗     ██║   
+    ╚════██║██║╚════██║██║   ██║██╔══╝  ██╔══██╗    ╚════██║██║   ██║██║     ██╔═██╗ ██╔══╝     ██║   
+    ███████║██║███████║╚██████╔╝███████╗██║  ██║    ███████║╚██████╔╝╚██████╗██║  ██╗███████╗   ██║   
+    ╚══════╝╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝                                                                                                  
+  `)
+  console.log(`server listening on port ${process.env.SOCKET_PORT}`);
+})
+
+
 server.listen(process.env.PORT || 3000, () => {
     console.log(`
     ███████╗██╗███████╗ ██████╗ ███████╗██████╗     ██████╗  █████╗  ██████╗██╗  ██╗███████╗███╗   ██╗██████╗ 
@@ -55,8 +86,7 @@ server.listen(process.env.PORT || 3000, () => {
     ███████╗██║███████╗██║  ███╗█████╗  ██████╔╝    ██████╔╝███████║██║     █████╔╝ █████╗  ██╔██╗ ██║██║  ██║
     ╚════██║██║╚════██║██║   ██║██╔══╝  ██╔══██╗    ██╔══██╗██╔══██║██║     ██╔═██╗ ██╔══╝  ██║╚██╗██║██║  ██║
     ███████║██║███████║╚██████╔╝███████╗██║  ██║    ██████╔╝██║  ██║╚██████╗██║  ██╗███████╗██║ ╚████║██████╔╝
-    ╚══════╝╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ 
-                                                                                                              
+    ╚══════╝╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝                                                                                                    
     `)
     console.log(`server listening on port ${process.env.PORT}`);
 

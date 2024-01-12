@@ -1,16 +1,19 @@
 const { error, ok } = require('../../../common/response')
 const { HTTP_CODES } = require('../../../common/constants')
-module.exports = ({ services: { login } }) => {
+module.exports = (value) => {
+  const { services: { login }, libs: { notify } } = value
   const authentication = async ({ user }, res) => {
     try {
       const auth = await login.authenticated(user)
+      console.log(`auth-${user.usuario}`)
+      notify.send(`auth-${user.usuario}`, `Bienvinido ${user.nombreCompleto}`)
       return ok(res, true, 'ok', auth)
     } catch (err) {
       error(res, HTTP_CODES.UNAUTHORIZED, err.message)
     }
   }
 
-  const verificar = async ({ user }, res) => {
+  const verificar = async ({}, res) => {
     try {
       return ok(res, true, 'ok')
     } catch (err) {
@@ -22,8 +25,6 @@ module.exports = ({ services: { login } }) => {
   const refreshToken = async ({ user }, res) => {
     try {
       const token = jwt.getToken(240, user)
-      console.log(token)
-      console.log(jwt.verifyToken(token))
       return ok(res, true, 'ok', { token })
     } catch (err) {
       error(res, HTTP_CODES.UNAUTHORIZED, err.message)

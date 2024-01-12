@@ -1,5 +1,6 @@
 const sequelize = require('sequelize')
 const dayjs = require('dayjs')
+
 module.exports = {
   pk: {
     primaryKey: true,
@@ -11,20 +12,17 @@ module.exports = {
   fieldsAuditory: {
     userCreated: {
       type: sequelize.UUID,
-      defaultValue: sequelize.UUIDV4,
       allowNull: false,
       xlabel: 'Usuario que creó el registro',
       field: '_user_created',
     },
     userUpdated: {
       type: sequelize.UUID,
-      defaultValue: sequelize.UUIDV4,
       xlabel: 'Usuario que actualizó el registro',
       field: '_user_updated',
     },
     userDeleted: {
       type: sequelize.UUID,
-      defaultValue: sequelize.UUIDV4,
       xlabel: 'Usuario que eliminó el registro',
       field: '_user_deleted',
     },

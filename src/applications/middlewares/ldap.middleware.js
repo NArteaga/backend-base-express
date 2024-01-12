@@ -6,10 +6,8 @@ const LdapMiddleWare = function (ldap) {
   const verificar = () => {
     return async function _middleware(req, res, next) {
       try {
-        console.log(req.body)
         const { usuario, password } = req.body
         const user = await ldap.auth(usuario, password)
-        console.log(user)
         req.user = user
         req.body = {}
         next()

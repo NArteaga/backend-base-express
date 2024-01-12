@@ -5,12 +5,14 @@ module.exports = (models) => {
     menu,
     rolMenu,
     unidad,
+    adjunto,
   } = models
 
 
   const {
-    detalleProyecto,
-    proyecto
+    adjuntoDetalleBitacora,
+    detalleBitacora,
+    bitacora
   } = models
 
   funcionario.belongsTo(rol, { foreignKey: { name: 'idRol' }, as: 'rol' })
@@ -28,11 +30,17 @@ module.exports = (models) => {
   menu.belongsTo(menu, { foreignKey: { name: 'idAgrupador' }, as: 'father' })
   menu.hasMany(menu, { foreignKey: { name: 'idAgrupador' }, as: 'childrens' })
 
-  detalleProyecto.belongsTo(proyecto, { foreignKey: { name: 'idProyecto' }, as: 'proyecto' })
-  proyecto.hasMany(detalleProyecto, { foreignKey: { name: 'idProyecto' }, as: 'detalleProyectos' })
+  detalleBitacora.belongsTo(bitacora, { foreignKey: { name: 'idProyecto' }, as: 'bitacora' })
+  bitacora.hasMany(detalleBitacora, { foreignKey: { name: 'idProyecto' }, as: 'detallesBitacora' })
 
-  detalleProyecto.belongsTo(funcionario, { foreignKey: { name: 'idFuncionario' }, as:'funcionario' })
-  funcionario.hasMany(detalleProyecto, { foreignKey: { name: 'idFuncionario' }, as: 'detalleProyectos' })
+  detalleBitacora.belongsTo(funcionario, { foreignKey: { name: 'idFuncionario' }, as:'funcionario' })
+  funcionario.hasMany(detalleBitacora, { foreignKey: { name: 'idFuncionario' }, as: 'detallesBitacora' })
   
+  bitacora.belongsTo(adjunto, { foreignKey: { name: 'idAdjunto' }, as: 'adjunto' })
+
+  detalleBitacora.belongsTo(adjunto, { foreignKey: { name: 'idAdjunto' }, as: 'imagen' })
+
+  detalleBitacora.belongsToMany(adjunto, { through: { model: adjuntoDetalleBitacora, unique: false}, as: 'adjuntos', foreignKey: 'idDetalleBitacora' })
+  adjunto.belongsToMany(detalleBitacora, { through: { model: adjuntoDetalleBitacora, unique: false}, as: 'detallesBitacoras', foreignKey: 'idAdjunto' })
   return models
 }
