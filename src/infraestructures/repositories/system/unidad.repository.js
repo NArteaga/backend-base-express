@@ -1,4 +1,6 @@
-const { createOrUpdate, deleteCondition, deleteId, findOne } = require('../../libs/repository.js');
+const { createOrUpdate, deleteId } = require('../../libs/repository.js');
+const { toJSON } = require('../../libs/utils');
+
 module.exports = ({ estructures, sequilize }) => {
   const { unidad } = estructures
 
@@ -19,8 +21,25 @@ module.exports = ({ estructures, sequilize }) => {
     if (result) return result.toJSON()
     return null
   }
+  const findList = async () => {
+    const query = {
+      attributes: [
+        'id',
+        'nombre',
+        'descripcion',
+        'estado',
+      ],
+      where: { estado: 'ACTIVO' }
+    }
+    const result = await unidad.findAll(query)
+    if (result) return toJSON(result)
+    return null
+  }
+
   return {
     findByNombre,
-    createOrUpdate: (item, transaction) => createOrUpdate(item, unidad, transaction)
+    findList,
+    createOrUpdate: (item, transaction) => createOrUpdate(item, unidad, transaction),
+    deleteId: (id, user, transaction) => deleteId(id, user, unidad, transaction)
   }
 }

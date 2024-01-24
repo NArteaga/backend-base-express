@@ -19,8 +19,10 @@ const getQuery = (option = {}, arr = []) => {
     query.order[0] = [option.order.substring(1), 'DESC']
   query.order.push(['id', 'ASC'])
   if (option.limit) query.limit = parseInt(option.limit)
+  else query.limit = 10
   if (query?.limit && option.page)
     query.offset = parseInt(option.page) * query.limit
+  else query.offset = 0
   return query
 }
 

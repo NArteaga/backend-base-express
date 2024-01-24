@@ -7,7 +7,9 @@ const LdapMiddleWare = function (ldap) {
     return async function _middleware(req, res, next) {
       try {
         const { usuario, password } = req.body
+        console.log('LDAP')
         const user = await ldap.auth(usuario, password)
+        console.log(user)
         req.user = user
         req.body = {}
         next()

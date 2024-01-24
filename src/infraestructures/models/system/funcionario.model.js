@@ -17,13 +17,11 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     primerApellido: {
       type: dataTypes.STRING,
-      allowNull: false,
       xlabel: 'Primer apellido del funcionario',
       field: 'primer_apellido',
     },
     segundoApellido: {
       type: dataTypes.STRING,
-      allowNull: false,
       xlabel: 'Segundo apellido del funcionario',
       field:'segundo_apellido',
     },
@@ -55,6 +53,7 @@ module.exports = ({ sequelize, dataTypes }) => {
       type: dataTypes.ENUM,
       values: ['ACTIVO', 'INACTIVO'],
       allowNull: false,
+      defaultValue: 'ACTIVO',
       xlabel: 'Estado del registro',
       field: 'estado',
     },

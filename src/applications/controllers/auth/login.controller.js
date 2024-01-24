@@ -4,11 +4,14 @@ module.exports = (value) => {
   const { services: { login }, libs: { notify } } = value
   const authentication = async ({ user }, res) => {
     try {
+      console.log('AUTH')
       const auth = await login.authenticated(user)
-      console.log(`auth-${user.usuario}`)
-      notify.send(`auth-${user.usuario}`, `Bienvinido ${user.nombreCompleto}`)
+      // notify.send(`auth-${user.usuario}`, `Bienvinido ${user.nombreCompleto}`)
+      console.log(auth)
+      if (auth.menus.length === 0) throw new Error('credenciales invalidas')
       return ok(res, true, 'ok', auth)
     } catch (err) {
+      console.log(err)
       error(res, HTTP_CODES.UNAUTHORIZED, err.message)
     }
   }

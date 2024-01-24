@@ -75,7 +75,8 @@ const loadRoutes = (path, app, directory, config, dependecies, url, verifyToken 
       console.log(`🚀🚀🚀   RUTAS: ${filename.toUpperCase()}   🚀🚀🚀`);
       getRoutes(pathfile, url)
       const route = require(pathfile)(app, dependecies)
-      if (verifyToken) app.use(`/${directory}/*`, dependecies.middlewares.jwt.verificar())
+      if (verifyToken)
+        app.use(`/${directory}/*`, dependecies.middlewares.jwt.verificar(), dependecies.middlewares.rol.verificar())
       app.use(`/${directory}`, route)
     }
   } catch (error) {
@@ -104,7 +105,6 @@ module.exports = {
   loadDependecies,
   injectDependecies: getInjectDependecies,
   dependecies: async (path, socket) => {
-    console.log(path)
     const dependecies = {}
     for (const inject of configInjection.config) {
       dependecies[inject.container]

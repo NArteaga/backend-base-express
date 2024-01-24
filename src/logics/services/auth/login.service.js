@@ -43,6 +43,7 @@ module.exports = ({ repositories, models, libs, transaction: t }) => {
         menus
       }
     } catch (error) {
+      console.log(error)
       await rollback(transaction)
       throw error
     }

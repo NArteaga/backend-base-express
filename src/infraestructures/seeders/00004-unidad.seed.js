@@ -5,8 +5,8 @@ let rows = [
   { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Dirección General Ejecutiva', descripcion: '', estado: 'ACTIVO' },
   // DEPENDIENTES DE LA MAE
   { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40002', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Gerencia de Finanzas', descripcion: '', estado: 'ACTIVO' },
-  { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40003', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Gerencia de Gestion de Proyectos', descripcion: '', estado: 'ACTIVO' },
-  { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40004', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Gerencia de Gestion y Sistemas', descripcion: '', estado: 'ACTIVO' },
+  { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40003', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Gerencia de Gestión de Proyectos', descripcion: '', estado: 'ACTIVO' },
+  { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40004', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Gerencia de Gestión y Sistemas', descripcion: '', estado: 'ACTIVO' },
   { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40005', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Departamento de Transparencia', descripcion: '', estado: 'ACTIVO' },
   { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40006', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Departamento de Asesoria Legal', descripcion: '', estado: 'ACTIVO' },
   { id: 'f20b494e-2926-4d01-a17e-8dcfd3b40007', id_unidad: 'f20b494e-2926-4d01-a17e-8dcfd3b40001', nombre: 'Departamento de Auditoria Interna', descripcion: '', estado: 'ACTIVO' },

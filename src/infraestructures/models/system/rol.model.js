@@ -18,6 +18,7 @@ module.exports = ({ sequelize, dataTypes }) => {
       type: dataTypes.ENUM,
       values: ['ACTIVO', 'INACTIVO'],
       allowNull: false,
+      defaultValue: 'ACTIVO',
       xlabel: 'Estado del registro',
       field: 'estado',
     },

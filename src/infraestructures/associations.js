@@ -8,6 +8,12 @@ module.exports = (models) => {
     adjunto,
   } = models
 
+  const {
+    administracion,
+    farip,
+    institucion,
+    proyecto,
+  } = models
 
   const {
     adjuntoDetalleBitacora,
@@ -37,6 +43,11 @@ module.exports = (models) => {
   funcionario.hasMany(detalleBitacora, { foreignKey: { name: 'idFuncionario' }, as: 'detallesBitacora' })
   
   bitacora.belongsTo(adjunto, { foreignKey: { name: 'idAdjunto' }, as: 'adjunto' })
+
+  administracion.belongsTo(adjunto, { foreignKey: { name: 'idDocument'}, as: 'documento' })
+  farip.belongsTo(adjunto, { foreignKey: { name: 'idDocument'}, as: 'documento' })
+  institucion.belongsTo(adjunto, { foreignKey: { name: 'idDocument'}, as: 'documento' })
+  proyecto.belongsTo(adjunto, { foreignKey: { name: 'idDocument'}, as: 'documento' })
 
   detalleBitacora.belongsTo(adjunto, { foreignKey: { name: 'idAdjunto' }, as: 'imagen' })
 

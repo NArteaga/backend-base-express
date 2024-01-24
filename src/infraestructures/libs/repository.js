@@ -62,7 +62,6 @@ const deleteCondition = async (condition, model, transaction) => {
   delete condition.user
   const query = { where: { ...condition } }
   if (transaction) query.transaction = transaction
-  console.log(query)
   try {
     const deleted = await model.update(set, query)
     return !!deleted

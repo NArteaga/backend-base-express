@@ -9,14 +9,16 @@ const RecaptchaMiddleWare = function () {
         const secretKey = process.env.RECAPTCHA_SECRET_KEY
         const token = req.headers['recaptcha-token']
         const url = `${process.env.RECAPTCHA_URL}?secret=${secretKey}&response=${token}`
+        console.log('RECAPTCHA')
         const { data: response } = await axios.post(url)
+        console.log(response)
         if (
           response.success
           && response.score > 0.5
           && response.hostname === process.env.FRONTEND_HOST
           && response.action === action)
             return next()
-        throw new Error('No se encuentra autorizado')
+        error(res, HTTP_CODES.UNAUTHORIZED, err.message)
       } catch (err) {
         error(res, HTTP_CODES.UNAUTHORIZED, err.message)
       }
