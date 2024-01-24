@@ -23,9 +23,9 @@ module.exports = ({ repositories: { institucion, adjunto }, libs: { file } }) =>
     }
   }
 
-  const deleteById = async ({ params, user: { user } }) => {
+  const deleteById = async ({ params: { id }, user: { user } }) => {
     try {
-      const response = await institucion.deleteById(params, user)
+      const response = await institucion.deleteId(id, user)
       return response
     } catch (error) {
       console.log(error)

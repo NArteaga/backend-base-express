@@ -23,9 +23,9 @@ module.exports = ({ repositories: { administracion, adjunto }, libs: { file } })
     }
   }
 
-  const deleteById = async ({ params, user: { user } }) => {
+  const deleteById = async ({ params: { id }, user: { user } }) => {
     try {
-      const response = await administracion.deleteById(params, user)
+      const response = await administracion.deleteId(id, user)
       return response
     } catch (error) {
       console.log(error)

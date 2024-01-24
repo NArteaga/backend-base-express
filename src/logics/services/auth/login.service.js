@@ -7,7 +7,7 @@ module.exports = ({ repositories, models, libs, transaction: t }) => {
     let transaction
     try {
       transaction = await create()
-      let usuario = await funcionario.findByCodigoLdap(user.codigo, transaction)
+      let usuario = await funcionario.findByCodigoLdap(user.usuario, transaction)
       if (!usuario) {
         const { ID_CREATE, ID_ROL } = process.env
         const unidadUsuario = await unidad.findByNombre(user.departamento, transaction)

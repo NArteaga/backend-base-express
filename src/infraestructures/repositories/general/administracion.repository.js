@@ -10,6 +10,7 @@ module.exports = ({ estructures }) => {
       'id',
       'nombre',
       'estado',
+      'userCreated',
     ]
     query.include = [
       {

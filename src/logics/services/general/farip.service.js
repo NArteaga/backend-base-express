@@ -23,9 +23,9 @@ module.exports = ({ repositories: { farip, adjunto }, libs: { file } }) => {
     }
   }
 
-  const deleteById = async ({ params, user: { user } }) => {
+  const deleteById = async ({ params: { id }, user: { user } }) => {
     try {
-      const response = await farip.deleteById(params, user)
+      const response = await farip.deleteId(id, user)
       return response
     } catch (error) {
       console.log(error)

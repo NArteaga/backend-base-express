@@ -5,7 +5,7 @@ module.exports = ({ repositories, transaction: { create, commit, rollback } }) =
     try {
       body.user = user;
       if (!body.id) {
-        const usuario = await funcionario.findByCodigoLdap(body.codigoLdap)
+        const usuario = await funcionario.findByCodigoLdap(body.usuario)
         if (usuario) { 
           sendError = true
           throw new Error('Ya existe un usuario con las mismas caracteristicas', 400)

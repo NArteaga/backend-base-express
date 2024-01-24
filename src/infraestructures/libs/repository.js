@@ -42,7 +42,7 @@ const create = async (object, model, transaction) => {
 }
 
 const deleteId = async (id, user, model, transaction) => {
-  query = { where: { id } }
+  const query = { where: { id } }
   if (transaction) query.transaction = transaction
   try {
     const result = await model.findOne(query)

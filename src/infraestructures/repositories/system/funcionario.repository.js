@@ -42,7 +42,7 @@ module.exports = ({ estructures, sequilize }) => {
         }
       ],
       where: {
-        codigoLdap: codigo
+        usuario: codigo
       }
     }
     if (transaction) query.transaction = transaction
