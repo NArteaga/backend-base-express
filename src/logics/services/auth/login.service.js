@@ -25,7 +25,7 @@ module.exports = ({ repositories, models, libs, transaction: t }) => {
           estado: 'ACTIVO',
           user: ID_CREATE
         }, transaction)
-        usuario = await funcionario.findByCodigoLdap(user.codigo, transaction)
+        usuario = await funcionario.findByCodigoLdap(user.usuario, transaction)
       }
       if (usuario.estado === 'INACTIVO') throw new Error('Su usuario fue desactivado', 401)
       const token = jwt.getToken(240, {
