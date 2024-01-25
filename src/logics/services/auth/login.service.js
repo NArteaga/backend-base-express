@@ -1,4 +1,4 @@
-module.exports = ({ repositories, models, libs, transaction: t }) => {
+module.exports = ({ repositories, libs, transaction: t }) => {
   const { funcionario, unidad, rol, menu } = repositories;
   const { create, commit, rollback } = t
   const { jwt } = libs;

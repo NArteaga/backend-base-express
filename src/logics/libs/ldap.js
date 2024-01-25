@@ -6,7 +6,6 @@ module.exports = () => {
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}` })
     return new Promise((resolve, reject) => {
       client.authenticate(username, password, (err, result) => {
-        console.log(err)
         if (err) reject(new Error('credenciales invalidas'))
         if (result) resolve(infoUser(user, password))
       })
@@ -18,7 +17,6 @@ module.exports = () => {
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}`, username, password })
     return new Promise((resolve, reject) => {
       client.findUser(username, (err, result) => {
-        console.log(result)
         if (err) reject(new Error('No se pudo encontrar el usuario correspondiente'))
         if (result) resolve(getContent(result))
       })

@@ -31,8 +31,12 @@ module.exports = ({ services: { funcionario }, libs: { ldap } }) => {
   }
 
   const info = async (req, res) => {
-    const result = await ldap.getUser(req.params.username)
-    return ok(res, true, 'ok', result)
+    try {
+      const result = await ldap.getUser(req.params.username)
+      return ok(res, true, 'ok', result)
+    } catch (err) {
+      error(res, HTTP_CODES.BAD_REQUEST, err.message)
+    }
   }
 
   const findAll = async (req, res) => {
