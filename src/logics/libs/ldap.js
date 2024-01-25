@@ -17,7 +17,7 @@ module.exports = () => {
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}`, username, password })
     return new Promise((resolve, reject) => {
       client.findUser(username, (err, result) => {
-        if (err) reject(new Error('No se pudo encontrar el usuario correspondiente'))
+        if (err || !result) reject(new Error('No se pudo encontrar el usuario correspondiente'))
         if (result) resolve(getContent(result))
       })
     })
@@ -29,7 +29,7 @@ module.exports = () => {
     const client = new ldap({ url: `ldap://${process.env.LDAP_HOST}:${process.env.LDAP_PORT}`, ...admin })
     return new Promise((resolve, reject) => {
       client.findUser(username, (err, result) => {
-        if (err) reject(new Error('No se pudo encontrar el usuario correspondiente'))
+        if (err || !result) reject(new Error('No se pudo encontrar el usuario correspondiente'))
         if (result) resolve(getContent(result))
       })
     })
