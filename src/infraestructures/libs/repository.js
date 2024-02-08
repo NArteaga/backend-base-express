@@ -1,5 +1,5 @@
-const { query } = require('express')
 const { errorHandler } = require('./utils')
+const { v4 } = require('uuid')
 
 const createOrUpdate = async (object, model, transaction) => {
   const query = { where: { id: object?.id || null } }
@@ -15,6 +15,7 @@ const update = async (object, query, model, item) => {
   try {
     delete object.user
     const updated = await model.update(object, query)
+    await history(object.userUpdated, item, model)
     const result = updated ? await model.findOne(query) : item
     if (result) return result.toJSON()
     return null
@@ -38,6 +39,27 @@ const create = async (object, model, transaction) => {
     console.log(error)
     if (transaction) await transaction.rollback()
     errorHandler(error)
+  }
+}
+
+const history = async (user, item, model) => {
+  try {
+    await model.options.sequelize.query(`
+    INSERT INTO public.history
+    (id, id_field, "table", "data", "_user_created", "_created_at", "_updated_at")
+    VALUES(:id, :idField, :table, :data, :user, :date, :date);
+    `, {
+      replacements: {
+        id: v4(),
+        idField: item.id,
+        table: model.tableName,
+        data: JSON.stringify(item),
+        user,
+        date: new Date()
+      }
+    })
+  } catch (error) {
+    console.log(error)
   }
 }
 

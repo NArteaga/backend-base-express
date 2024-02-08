@@ -1,16 +1,16 @@
-const axios = require('axios')
 const { HTTP_CODES } = require('../../common/constants')
 const { error } = require('../../common/response')
 
-const JWTMiddleWare = function (jwt) {
+const JWTMiddleWare = function (jwt, auth) {
   const verificar = () => {
     return async function _middleware(req, res, next) {
       try {
         if (!req.headers.authorization) throw new Error('No autorizado')
-        token = req.headers.authorization.replace('Bearer ', '')
-        if (token.exp) delete token.exp
-        if (token.iat) delete token.iat
-        const user = await jwt.verifyToken(token)
+        req.token = req.headers.authorization.replace('Bearer ', '')
+        const user = await jwt.verifyToken(req.token)
+        await auth.findToken(req.token)
+        if (user.exp) delete user.exp
+        if (user.iat) delete user.iat
         req.user = user
         next()
       } catch (err) {
@@ -23,7 +23,6 @@ const JWTMiddleWare = function (jwt) {
   }
 }
 
-module.exports = ({ libs }) => {
-  const { jwt } = libs
-  return new JWTMiddleWare(jwt)
+module.exports = ({ libs: { jwt }, services: { auth } }) => {
+  return new JWTMiddleWare(jwt, auth)
 }

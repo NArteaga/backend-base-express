@@ -17,7 +17,7 @@ const db = {
     acquire: 30000,
     idle: 10000,
   },
-  logging: s => console.log(s)
+  logging: s => debug(s)
 }
 
 module.exports = {

@@ -62,6 +62,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('funcionario', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_funcionario'
+    tableName: 'system_funcionario',
+    indexes: [
+      { unique: false, fields: ['usuario', 'nombre_completo', 'primer_apellido', 'segundo_apellido', 'id_departamento', 'id_rol', 'estado'] }
+    ]
   })
 }

@@ -42,9 +42,12 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('detalle-bitacora', fields, {
+  return sequelize.define('detalle_bitacora', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'avances-detalle-bitacora'
+    tableName: 'avances_detalle_bitacora',
+    indexes: [
+      { unique: false, fields: ['id_bitacora', 'aporte', 'estado'] }
+    ]
   })
 }

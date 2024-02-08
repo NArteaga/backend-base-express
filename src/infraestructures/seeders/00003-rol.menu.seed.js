@@ -86,9 +86,6 @@ for (const api of apis) {
   rows.push({ id: v4(), id_rol: '8db0ee96-0e81-441f-ad33-4f8823980004', id_menu: api.id, accion: '["GET", "POST", "PATCH"]', estado: 'ACTIVO' })
 }
 
-
-console.log(rows)
-
 rows = fildAuditoryRegister(rows);
 
 module.exports = {

@@ -39,9 +39,9 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('history-bitacora', fields, {
+  return sequelize.define('history_bitacora', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'history-bitacora',
+    tableName: 'history_bitacora',
   })
 }

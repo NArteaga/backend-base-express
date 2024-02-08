@@ -5,6 +5,7 @@ const cors = require('cors')
 const { createServer } = require('http')
 const { config } = require('dotenv')
 const { dependecies, routes } = require('./common/load')
+const requestIp = require('request-ip');
 config()
 
 const app = express()
@@ -13,6 +14,7 @@ const socketApp = express()
 
 app.use(json({ limit: '10mb' }))
 app.use(cors())
+app.use(requestIp.mw())
 socketApp.use(cors())
 app.use(express.static(process.env.PATH_FILE_PUBLIC))
 app.use(fileUpload())

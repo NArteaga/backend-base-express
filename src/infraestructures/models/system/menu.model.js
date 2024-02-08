@@ -50,6 +50,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('menu', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_menu'
+    tableName: 'system_menu',
+    indexes: [
+      { unique: false, fields: ['id_agrupador', 'tipo', 'nombre', 'ruta', 'estado'] }
+    ]
   })
 }

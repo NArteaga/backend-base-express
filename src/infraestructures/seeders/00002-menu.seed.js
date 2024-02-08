@@ -6,7 +6,7 @@ let rows = [
   { id: '434a5663-708d-4259-94e9-1447debe1000', nombre: 'GENERAL', ruta: '/app/general', icon: 'pi pi-home', orden: 1, tipo: 'GRUPO_MENU', estado: 'ACTIVO' },
   { id: '434a5663-708d-4259-94e9-1447debe2000', nombre: 'AVANCE', ruta: '/app/avances', icon: 'pi pi-chart-line', orden: 2, tipo: 'GRUPO_MENU', estado: 'ACTIVO' },
   { id: '434a5663-708d-4259-94e9-1447debe3000', nombre: 'ADMINISTRACIÓN', ruta: '/app/admin', icon: 'pi pi-users', orden: 3, tipo: 'GRUPO_MENU', estado: 'ACTIVO' },
-  { id: '434a5663-708d-4259-94e9-1447debe1001', nombre: 'Información Institucional', id_agrupador: '434a5663-708d-4259-94e9-1447debe1000', ruta: '/app/general/inversion', icon: 'pi pi-building', orden: 1, tipo: 'MENU', estado: 'ACTIVO' },
+  { id: '434a5663-708d-4259-94e9-1447debe1001', nombre: 'Información Institucional', id_agrupador: '434a5663-708d-4259-94e9-1447debe1000', ruta: '/app/general/institucion', icon: 'pi pi-building', orden: 1, tipo: 'MENU', estado: 'ACTIVO' },
   { id: '434a5663-708d-4259-94e9-1447debe1002', nombre: 'Seguimiento FARIP', id_agrupador: '434a5663-708d-4259-94e9-1447debe1000', ruta: '/app/general/farip', icon: 'pi pi-money-bill', orden: 2, tipo: 'MENU', estado: 'ACTIVO' },
   { id: '434a5663-708d-4259-94e9-1447debe1003', nombre: 'Seguimiento de Proyectos', id_agrupador: '434a5663-708d-4259-94e9-1447debe1000', ruta: '/app/general/proyectos', icon: 'pi pi-briefcase', orden: 3, tipo: 'MENU', estado: 'ACTIVO' },
   { id: '434a5663-708d-4259-94e9-1447debe1004', nombre: 'Seguimiento de Administración', id_agrupador: '434a5663-708d-4259-94e9-1447debe1000', ruta: '/app/general/administracion', icon: 'pi pi-book', orden: 4, tipo: 'MENU', estado: 'ACTIVO' },

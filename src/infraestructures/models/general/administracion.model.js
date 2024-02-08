@@ -28,6 +28,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('administracion', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'general-administracion',
+    tableName: 'general_administracion',
+    indexes: [
+      { unique: false, fields: ['nombre', 'estado'] }
+    ]
   })
 }

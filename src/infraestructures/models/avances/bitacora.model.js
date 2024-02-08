@@ -37,6 +37,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('bitacora', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'avances-bitacora',
+    tableName: 'avances_bitacora',
+    indexes: [
+      { unique: false, fields: ['nombre', 'palabra_clave', 'estado'] }
+    ]
   })
 }

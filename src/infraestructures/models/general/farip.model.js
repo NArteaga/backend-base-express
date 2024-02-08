@@ -27,6 +27,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('farip', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'general-farip',
+    tableName: 'general_farip',
+    indexes: [
+      { unique: false, fields: ['nombre', 'estado'] }
+    ]
   })
 }

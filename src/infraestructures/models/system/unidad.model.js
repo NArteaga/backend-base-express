@@ -32,6 +32,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('unidad', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_unidad'
+    tableName: 'system_unidad',
+    indexes: [
+      { unique: false, fields: ['nombre', 'estado'] }
+    ]
   })
 }

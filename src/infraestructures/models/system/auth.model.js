@@ -3,29 +3,29 @@ const { pk, fieldsAuditory } = require('../../libs/fields')
 module.exports = ({ sequelize, dataTypes }) => {
   const fields = {
     id: pk,
-    nombre: {
-      type: dataTypes.STRING,
+    idUser: {
+      type: dataTypes.UUID,
       allowNull: false,
-      xlabel: 'Nombre del adjunto',
-      field: 'nombre',
+      xlabel: 'Identificador de Usuario',
+      field: 'id_user',
     },
-    path: {
-      type: dataTypes.STRING,
+    token: {
+      type: dataTypes.TEXT,
       allowNull: false,
-      xlabel: 'Url del adjunto',
-      field: 'path',
+      xlabel: 'Token del Cliente',
+      field: 'token',
     },
-    mime: {
-      type: dataTypes.STRING,
+    client: {
+      type: dataTypes.JSONB,
       allowNull: false,
-      xlabel: 'Mime del adjunto',
-      field: 'mime',
+      xlabel: 'Información del Cliente',
+      field: 'client',
     },
-    tipo: {
-      type: dataTypes.STRING,
+    exp: {
+      type: dataTypes.INTEGER,
       allowNull: false,
-      xlabel: 'Tipo del adjunto',
-      field: 'tipo',
+      xlabel: 'Tiempo de Expiracion',
+      field: 'exp',
     },
     estado: {
       type: dataTypes.ENUM,
@@ -37,12 +37,12 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('adjunto', fields, {
+  return sequelize.define('auth', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_adjunto',
+    tableName: 'system_auth',
     indexes: [
-      { unique: false, fields: ['nombre', 'estado'] }
+      { unique: false, fields: ['id_user', 'token', 'estado'] }
     ]
   })
 }

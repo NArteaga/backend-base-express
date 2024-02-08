@@ -1,5 +1,6 @@
 module.exports = (models) => {
   const {
+    auth,
     funcionario,
     rol,
     menu,
@@ -20,6 +21,8 @@ module.exports = (models) => {
     detalleBitacora,
     bitacora
   } = models
+
+  auth.belongsTo(funcionario, { foreignKey: { name: 'idUser' }, as: 'funcionario' })
 
   funcionario.belongsTo(rol, { foreignKey: { name: 'idRol' }, as: 'rol' })
   rol.hasMany(funcionario, { foreignKey: { name: 'idRol' }, as: 'funcionarios' })

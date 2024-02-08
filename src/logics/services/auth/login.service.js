@@ -1,5 +1,5 @@
 module.exports = ({ repositories, libs, transaction: t }) => {
-  const { funcionario, unidad, rol, menu } = repositories;
+  const { funcionario, unidad, rol, menu, auth } = repositories;
   const { create, commit, rollback } = t
   const { jwt } = libs;
 

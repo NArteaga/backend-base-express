@@ -9,9 +9,7 @@ const RecaptchaMiddleWare = function () {
         const secretKey = process.env.RECAPTCHA_SECRET_KEY
         const token = req.headers['recaptcha-token']
         const url = `${process.env.RECAPTCHA_URL}?secret=${secretKey}&response=${token}`
-        console.log('RECAPTCHA')
         const { data: response } = await axios.post(url)
-        console.log(response)
         if (
           response.success
           && response.score > 0.5
@@ -20,7 +18,7 @@ const RecaptchaMiddleWare = function () {
             return next()
         error(res, HTTP_CODES.UNAUTHORIZED, err.message)
       } catch (err) {
-        error(res, HTTP_CODES.UNAUTHORIZED, err.message)
+        error(res, HTTP_CODES.UNAUTHORIZED, 'No se pudo comprobar el token del recaptcha')
       }
     }
   }

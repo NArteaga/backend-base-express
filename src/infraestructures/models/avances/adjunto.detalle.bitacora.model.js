@@ -25,9 +25,9 @@ module.exports = ({ sequelize, dataTypes }) => {
     },
     ...fieldsAuditory
   }
-  return sequelize.define('adjunto-detalle-bitacora', fields, {
+  return sequelize.define('adjunto_detalle_bitacora', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'avances-adjunto-detalle-bitacora'
+    tableName: 'avances_adjunto_detalle_bitacora'
   })
 }

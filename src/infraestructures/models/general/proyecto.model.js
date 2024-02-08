@@ -27,6 +27,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('proyecto', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'general-proyecto',
+    tableName: 'general_proyecto',
+    indexes: [
+      { unique: false, fields: ['nombre', 'estado'] }
+    ]
   })
 }

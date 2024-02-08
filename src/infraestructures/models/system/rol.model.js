@@ -27,6 +27,9 @@ module.exports = ({ sequelize, dataTypes }) => {
   return sequelize.define('rol', fields, {
     paranoid: true,
     timestamps: true,
-    tableName: 'system_rol'
+    tableName: 'system_rol',
+    indexes: [
+      { unique: false, fields: ['nombre', 'estado'] }
+    ]
   })
 }

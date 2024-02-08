@@ -44,16 +44,20 @@ const getInjectDependecies = (dependecies, injects = []) => {
 }
 
 const loadDependecies = (path, config, dependecies) => {
-  const files = readdirSync(path)
   let inject = {}
+  const files = readdirSync(path)
   for (const file of files) {
     const pathfile = join(path, file)
     if (statSync(pathfile).isDirectory())
-      inject = { ...inject, ...loadDependecies(pathfile, config, dependecies) }
+    inject = { ...inject, ...loadDependecies(pathfile, config, dependecies) }
     const endfilename = `${config.name}.${config.type}`
     if (!file.endsWith(endfilename)) continue
     const filename = file.replace(endfilename, '')
-    inject[`${formatNameInjection(filename)}`] = require(pathfile)({ ...dependecies, ...config.dependecies })
+    try {
+      inject[`${formatNameInjection(filename)}`] = require(pathfile)({ ...dependecies, ...config.dependecies })
+    } catch (err) {
+      console.error(`No se pudo injectar la propiedad ${formatNameInjection(filename)} -> ${pathfile}`)
+    }
   }
   return inject
 }
@@ -120,6 +124,7 @@ module.exports = {
     return dependecies
   },
   routes: (path, dependecies) => {
+    app.use('*', dependecies.middlewares.device.verificar())
     loadRoutes(
       join(path, 'applications', 'routes'),
       app,
