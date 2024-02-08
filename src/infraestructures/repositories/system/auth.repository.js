@@ -9,7 +9,7 @@ module.exports = ({ estructures }) => {
         'idUser',
         'token',
         'client',
-        'iat',
+        'exp',
         'estado'
       ],
       where: { token }
