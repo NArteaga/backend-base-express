@@ -9,6 +9,7 @@ const DeviceMiddleware = function () {
   const verificar = () => {
     return async function _middleware(req, res, next) {
       try {
+        const ip = req.clientIp.replace('::ffff:', '')
         const { os, client, device } = detector.detect(req.headers['user-agent'])
         req.client = {
           so: `${os.name} ${os.version}`,
@@ -17,9 +18,9 @@ const DeviceMiddleware = function () {
           type: client.type,
           device: device.name || 'desktop',
           deviceType: device.type,
-          ip: req.clientIp,
+          ip: ip,
         }
-        const geoClient = geoip.lookup(req.clientIp)
+        const geoClient = geoip.lookup(ip)
         if (geoClient) {
           req.client = {
             ...req.client,
