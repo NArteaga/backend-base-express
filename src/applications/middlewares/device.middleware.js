@@ -16,8 +16,9 @@ const DeviceMiddleware = function () {
           archicture: os.platform || 'amd',
           browser: `${client.name} ${client.version}`,
           type: client.type,
-          device: device.name || 'desktop',
+          device: device.model || 'desktop',
           deviceType: device.type,
+          brand: device.brand,
           ip: ip,
         }
         const geoClient = geoip.lookup(ip)
